@@ -15,7 +15,7 @@ def blog(message, keyword):
     body = response.read()
     posts = json.loads(body.decode('utf-8'))
     if len(posts) > 0:
-        max_num = 5
+        max_num = 3
         num = max_num if len(posts) > max_num else len(posts)
         for i in range(num):
             message.reply(posts[i]['link'])
