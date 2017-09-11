@@ -1,5 +1,11 @@
 # coding: utf-8
 
-API_TOKEN = ENV['SLACK_API_TOKEN']
-DEFAULT_REPLY = "This is default reply."
-PLUGINS = ['plugins']
+import os
+
+DEBUG = False
+API_TOKEN = os.getenv('SLACK_API_TOKEN', '')
+DEFAULT_REPLY = "Sorry, I couldn't understand your message."
+PLUGINS = [
+#    'slackbot.plugins',
+    'mybot.plugins',
+]
