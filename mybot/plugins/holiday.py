@@ -6,6 +6,7 @@ from urllib.parse import urlencode, quote_plus
 import json
 from datetime import tzinfo,timedelta,datetime
 import pytz
+import os
 
 def get_timezone():
     return pytz.timezone('Asia/Bangkok')
@@ -13,7 +14,7 @@ def get_timezone():
 def get_holiday(min_time, max_time):
     api_key = os.getenv('GOOGLE_API_KEY', '')
     calendar_id = 'ja.th#holiday@group.v.calendar.google.com'
-    api_url = '/calendar/v3/calendars/' + calendar_id + '/events?key=' + api_key + '&singleEvents=true'
+    api_url = '/calendar/v3/calendars/' + quote_plus(calendar_id) + '/events?key=' + quote_plus(api_key) + '&singleEvents=true&'
 
     min_time_str = min_time.isoformat()
     max_time_str = max_time.isoformat()
@@ -21,12 +22,14 @@ def get_holiday(min_time, max_time):
     query = urlencode(payload, quote_via=quote_plus)
     conn = http.client.HTTPSConnection("www.googleapis.com")
     conn.request("GET", api_url + query)
-
     response = conn.getresponse()
-    body = response.read()
-    data = json.loads(body.decode('utf-8'))
-    if len(data['items']) > 0:
-        return data['items'][0]
+    if response.status == 200:
+        body = response.read()
+        data = json.loads(body.decode('utf-8'))
+        if len(data['items']) > 0:
+            return data['items'][0]
+        else:
+            return None
     else:
         return None
 
@@ -41,12 +44,12 @@ def notify_with_holiday(message, min_time, max_time):
 def holiday(message, keyword):
     tz = get_timezone()
     if keyword == 'tomorrow':
-        today = datettime.today()
+        today = datetime.today()
         min_time = datetime(today.year, today.month, today.day, tzinfo=tz) + timedelta(days=1)
         max_time = min_time + timedelta(days=1)
         notify_with_holiday(message, min_time, max_time)
     elif keyword == 'today':
-        today = datettime.today()
+        today = datetime.today()
         min_time = datetime(today.year, today.month, today.day, tzinfo=tz)
         max_time = min_time + timedelta(days=1)
         notify_with_holiday(message, min_time, max_time)
