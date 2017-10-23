@@ -56,8 +56,9 @@ def notify_with_holiday(message, min_time, max_time, limit=1):
             notify_message += get_holiday_str(holiday)
         message.reply(notify_message)
 
+@respond_to('holiday')
 @respond_to('holiday (.*)')
-def holiday(message, keyword):
+def holiday(message, keyword=None):
     tz = get_timezone()
     if keyword == 'tomorrow':
         today = datetime.today()
@@ -72,7 +73,6 @@ def holiday(message, keyword):
     elif keyword == 'help':
         message.reply('Usage: holiday (tomorrow|today)')
     else:
-        tz = get_timezone()
         today = datetime.today()
         min_time = datetime(today.year, today.month, today.day, tzinfo=tz)
         max_time = min_time + timedelta(days=90)
