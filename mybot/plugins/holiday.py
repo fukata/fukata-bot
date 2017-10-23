@@ -4,8 +4,7 @@ from slackbot.bot import respond_to
 import http.client
 from urllib.parse import urlencode, quote_plus
 import json
-from datetime import tzinfo,timedelta,datetime
-import pytz
+from datetime import tzinfo,timedelta,datetime,timezone
 import os
 
 def get_holiday_str(holiday):
@@ -19,7 +18,7 @@ def get_weekday_str(dt):
     return weekday_strs[dt.weekday()]
 
 def get_timezone():
-    return pytz.timezone('Asia/Bangkok')
+    return timezone(timedelta(hours=+7), 'Asia/Bangkok')
 
 def get_holiday(min_time, max_time, limit):
     api_key = os.getenv('GOOGLE_API_KEY', '')
