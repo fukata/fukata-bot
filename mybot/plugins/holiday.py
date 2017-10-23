@@ -69,13 +69,11 @@ def holiday(message, keyword):
         min_time = datetime(today.year, today.month, today.day, tzinfo=tz)
         max_time = min_time + timedelta(days=1)
         notify_with_holiday(message, min_time, max_time)
+    elif keyword == 'help':
+        message.reply('Usage: holiday (tomorrow|today)')
     else:
-        message.reply('Usage: holiday tomorrow|today')
-
-@respond_to('holiday')
-def default_holiday(message):
-    tz = get_timezone()
-    today = datetime.today()
-    min_time = datetime(today.year, today.month, today.day, tzinfo=tz)
-    max_time = min_time + timedelta(days=90)
-    notify_with_holiday(message, min_time, max_time, limit=7)
+        tz = get_timezone()
+        today = datetime.today()
+        min_time = datetime(today.year, today.month, today.day, tzinfo=tz)
+        max_time = min_time + timedelta(days=90)
+        notify_with_holiday(message, min_time, max_time, limit=7)
