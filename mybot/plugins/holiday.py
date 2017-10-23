@@ -64,11 +64,17 @@ def holiday(message, keyword=None):
         today = datetime.today()
         min_time = datetime(today.year, today.month, today.day, tzinfo=tz) + timedelta(days=1)
         max_time = min_time + timedelta(days=1)
+
+        min_time = min_time + timedelta(seconds=1)
+        max_time = max_time - timedelta(seconds=1)
         notify_with_holiday(message, min_time, max_time)
     elif keyword == 'today':
         today = datetime.today()
         min_time = datetime(today.year, today.month, today.day, tzinfo=tz)
         max_time = min_time + timedelta(days=1)
+
+        min_time = min_time + timedelta(seconds=1)
+        max_time = max_time - timedelta(seconds=1)
         notify_with_holiday(message, min_time, max_time)
     elif keyword == 'help':
         message.reply('Usage: holiday (tomorrow|today)')
@@ -76,4 +82,7 @@ def holiday(message, keyword=None):
         today = datetime.today()
         min_time = datetime(today.year, today.month, today.day, tzinfo=tz)
         max_time = min_time + timedelta(days=90)
+
+        min_time = min_time + timedelta(seconds=1)
+        max_time = max_time - timedelta(seconds=1)
         notify_with_holiday(message, min_time, max_time, limit=7)
