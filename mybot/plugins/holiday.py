@@ -56,7 +56,7 @@ def notify_with_holiday(message, min_time, max_time, limit=1):
             notify_message += get_holiday_str(holiday)
         message.reply(notify_message)
 
-@respond_to('holiday')
+@respond_to('holiday$')
 @respond_to('holiday (.*)')
 def holiday(message, keyword=None):
     tz = get_timezone()
