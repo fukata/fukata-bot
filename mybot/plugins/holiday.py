@@ -79,7 +79,7 @@ def holiday(message, keyword=None):
     else:
         today = datetime.today()
         min_time = datetime(today.year, today.month, today.day, tzinfo=tz)
-        max_time = min_time + timedelta(days=90)
+        max_time = min_time + timedelta(days=30)
 
         min_time = min_time + timedelta(seconds=1)
         max_time = max_time - timedelta(seconds=1)
