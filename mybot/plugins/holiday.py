@@ -18,7 +18,7 @@ def get_weekday_str(dt):
     return weekday_strs[dt.weekday()]
 
 def get_timezone():
-    return timezone(timedelta(hours=+7), 'Asia/Bangkok')
+    return timezone(timedelta(hours=0), 'UTC')
 
 def get_holiday(min_time, max_time, limit):
     api_key = os.getenv('GOOGLE_API_KEY', '')
