@@ -36,10 +36,8 @@ def get_holiday(min_time, max_time, limit):
     if response.status == 200:
         body = response.read()
         data = json.loads(body.decode('utf-8'))
-        item_num = len(data['items'])
-        if item_num > 0:
-            num = limit if item_num > limit else item_num
-            return data['items'][0:num]
+        if len(data['items']) > 0:
+            return data['items']
         else:
             return None
     else:
