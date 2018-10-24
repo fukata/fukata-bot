@@ -24,5 +24,5 @@ def get_no_alcohol_day():
 @respond_to('thailand:no-alcohol-day$')
 @respond_to('thailand:no-alcohol-day (.*)')
 def no_alcohol_day(message, keyword=None):
-    notify_message = get_no_alcohol_day()
+    notify_message = "Thailand No Alcohol Days\n" + get_no_alcohol_day()
     message.reply(notify_message)
